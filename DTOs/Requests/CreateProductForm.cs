@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.Util.Internal;
 
 namespace e_commerce.DTOs.Requests
 {
@@ -21,5 +22,7 @@ namespace e_commerce.DTOs.Requests
         
         [Required]
         public int Quantity{set;get;} = 0;
+
+        public IFormFile? image {set;get;} = null;
     }
 }

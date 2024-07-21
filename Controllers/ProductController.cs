@@ -8,9 +8,7 @@ using e_commerce.Domain.Repositories.Interfaces;
 using e_commerce.DTOs.Requests;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using MongoDB.Bson.Serialization.Attributes;
-
+using e_commerce.Extensions;
 namespace e_commerce.Controllers
 {
     [ApiController]
@@ -22,10 +20,12 @@ namespace e_commerce.Controllers
         public ProductController(IProductRepository productRepository){
             _productRepository = productRepository;
         }
+        
         [HttpGet]
         public async Task<IActionResult> All(){
             return Ok(await _productRepository.all());
         }
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> Products( string id){
             Product? product;
@@ -45,8 +45,34 @@ namespace e_commerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> create( [FromBody] CreateProductForm form){
-            await _productRepository.create(new Product(form.productName,form.Describtion,form.Price,form.Quantity));
+        public async Task<IActionResult> create( [FromForm] CreateProductForm form){
+            
+            //validate the file
+            if(form.image is not null)
+            {
+                (bool valide , string message) =  form.image.validate();
+                if(!valide) return BadRequest(new {message =message});
+            }
+
+            Product product = new Product(form.productName,form.Describtion,form.Price,form.Quantity);
+            
+            await _productRepository.create(product);
+            
+            if(form.image is not null)
+            {
+            
+            string extenstion = form.image!.FileName.Split(".").Last();
+            string url = $"static/productImages/{product.Id}.{extenstion}";
+            string fullPath = Path.GetFullPath("wwwroot/"+ url);
+            
+            using(var file = System.IO.File.Create(fullPath)){
+                await form.image.CopyToAsync(file);
+            }
+            
+            product.imageUrl = url;
+            await _productRepository.update(product);
+            }
+
             return Ok(new {meesage ="product created successfully"});
         }
         

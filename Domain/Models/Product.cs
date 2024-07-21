@@ -6,12 +6,13 @@ namespace e_commerce.Domain.Models
 {
     public class Product
     {
-        public Product(string productName, string Describtion, double Price, int Quantity)
+        public Product(string productName, string Describtion, double Price, int Quantity,string imageUrl = null)
         {
             this.productName = productName;
             this.Describtion = Describtion;
             this.Price = Price;
             this.Quantity = Quantity;
+            this.imageUrl = imageUrl;
 
         }
         [BsonId]
@@ -21,6 +22,7 @@ namespace e_commerce.Domain.Models
         public string Describtion {set;get;}
         public double Price;
         public int Quantity;
+        public string? imageUrl {set;get;} = null;
 
         
     }
