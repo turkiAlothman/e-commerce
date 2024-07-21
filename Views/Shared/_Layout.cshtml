@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<base href="~/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <title>home</title>
+</head>
+<body>
+
+     <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">e-commerce Site</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Authentication/login">login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home/cart">cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+   @RenderBody()
+
+
+       <!-- Footer -->
+    <footer class="bg-light text-center py-4">
+        <div class="container">
+            <p class="mb-0">© 2024 CommerceSite. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
+</body>
+</html>
