@@ -17,7 +17,7 @@ window.onload = function() {
             url: "/api/Product",
             data: "data",
             success: function (response) {
-                response.forEach(element => {
+                response.data.forEach(element => {
                     $('#loading').hide();
                    $("#products").append($(createProductCard(element)));
                    

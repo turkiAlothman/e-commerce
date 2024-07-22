@@ -22,8 +22,12 @@ namespace e_commerce.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> All(){
-            return Ok(await _productRepository.all());
+        public async Task<IActionResult> All([FromQuery] int pageNumber = 1 , [FromQuery] int pageSize = 10){
+            
+            var data =  _productRepository.all(pageNumber,pageSize);
+            var count =  _productRepository.count();
+            
+            return Ok(new {data = await data, count = await count});
         }
         
         [HttpGet("{id}")]

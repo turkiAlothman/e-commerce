@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using e_commerce.Configurations;
 using e_commerce.Domain.Models;
 using e_commerce.Domain.Repositories.Interfaces;
+using e_commerce.utils;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -22,8 +23,10 @@ namespace e_commerce.Domain.Repositories
             this._products = database.GetCollection<Product>(options.Value.productCollection);
         }
         
-        public async Task<List<Product>> all(){
-            return await this._products.Find(_ => true).ToListAsync();
+        public async Task<List<Product>> all(int pageNumber, int pageSize){
+            int start = (pageNumber -1) * pageSize;
+            
+            return await this._products.Find(_ => true).Skip(start).Limit(pageSize).ToListAsync();
         }
         public async Task<Product> getById(string id){
             return await _products.Find(p => p.Id == id).FirstOrDefaultAsync();
@@ -37,6 +40,10 @@ namespace e_commerce.Domain.Repositories
 
         public async Task delete(string id){
             await this._products.DeleteOneAsync(p => p.Id == id);
+        }
+
+        public async Task<long> count(){
+            return await this._products.CountDocumentsAsync(_=> true);
         }
         
     }
