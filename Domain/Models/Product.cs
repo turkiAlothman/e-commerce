@@ -20,8 +20,8 @@ namespace e_commerce.Domain.Models
         public string Id { get; set;}
         public string productName {set;get;}
         public string Describtion {set;get;}
-        public double Price;
-        public int Quantity;
+        public double Price {set;get;}
+        public int Quantity {set;get;}
         public string? imageUrl {set;get;} = null;
 
         
