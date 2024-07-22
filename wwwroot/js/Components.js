@@ -16,3 +16,57 @@ export function createProductCard(element) {
         </div>
     `;
 }
+
+
+
+
+export function pagination(pageNumber, pagesize, count) {
+    
+    var pages =  Math.ceil(count/pagesize);
+    
+    var previous = ""
+    var Next = ""
+    var middle = ""
+
+    if(pageNumber !=1){
+       previous = `
+            <a class="page-link" data-index="${pageNumber - 1}" href="javascript:void(0)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only" data-index="${pageNumber - 1}">Previous</span>
+            </a>
+        ` 
+          middle = middle +`<li class="page-item"><a class="page-link" data-index="${pageNumber - 1}" href="javascript:void(0)">${pageNumber - 1}</a></li>`
+    }
+
+    middle = middle +`<li class="page-item active"><a class="page-link" data-index="${pageNumber}" href="javascript:void(0)">${pageNumber}</a></li>`
+        
+    if(pageNumber != pages){
+        Next = `
+            <a class="page-link" data-index="${pageNumber +1}" href="javascript:void(0)" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only" data-index="${pageNumber +1}">Next</span>
+            </a>
+                `
+            middle = middle +`<li class="page-item"><a class="page-link" data-index="${pageNumber +1}" href="javascript:void(0)">${pageNumber + 1}</a></li>`
+            }
+    
+    
+    
+    
+
+
+    return `
+                <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+            ${previous}
+            </li>
+            
+            ${middle}
+            <li class="page-item">
+            ${Next}
+            </li>
+        </ul>
+        </nav>
+    `;
+}
