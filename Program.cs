@@ -1,5 +1,6 @@
 using e_commerce.Configurations;
 using e_commerce.Domain.Repositories;
+using e_commerce.Middlewares;
 using e_commerce.utils;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// app.UseAuthorization();
+app.UseMiddleware<SessionManagement>();
 
 app.MapControllerRoute(
     name: "default",
