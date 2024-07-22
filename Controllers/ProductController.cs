@@ -9,8 +9,10 @@ using e_commerce.DTOs.Requests;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using e_commerce.Extensions;
+using Microsoft.AspNetCore.Authorization;
 namespace e_commerce.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
