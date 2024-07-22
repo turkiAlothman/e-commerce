@@ -40,10 +40,13 @@ namespace e_commerce.Controllers
                 return NotFound(new {message = "product not found"});
             
             HttpContext.User.Claims.FirstOrDefault(claim => {
-                Debugging.print(claim);
+                Debugging.print(claim.Issuer);
+                Debugging.print(claim.Value);
+                Debugging.print(claim.Subject);
+                Console.WriteLine("\n\n");
                 return claim.Value =="d";
             });
-            return Ok(new {message = HttpContext.User.Claims.FirstOrDefault(claim => claim.Value == "Signed_up")});
+            return Ok(new {message = HttpContext.User.Claims.});
             
         } 
     }
