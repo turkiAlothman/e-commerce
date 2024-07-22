@@ -23,49 +23,31 @@ var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("Privat
 builder.Services.AddAuthentication(Options => {
     Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(
-    Options =>{
-        Options.UseSecurityTokenValidators=true;
-    Options.TokenValidationParameters = new TokenValidationParameters{
+    
+    }).AddJwtBearer(
+        Options =>{
+            Options.UseSecurityTokenValidators=true;
+            Options.TokenValidationParameters = new TokenValidationParameters{
             ValidateIssuer = false, 
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key)
-
-    };
+        };
+    
     Options.Events = new JwtBearerEvents{
         OnMessageReceived = context => {
-            
-          
-                
-            if (context.Request.Headers.ContainsKey("Authorization")){
-                //context.Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
                 context.Token = context.Request.Headers["Authorization"];
-            }
-                
-            Debugging.print(context.Token);
-
             return Task.CompletedTask;
         },
 
         OnAuthenticationFailed = context =>
             {
                 // Log the error
-                
                 Debugging.print(context.Exception.ToString());
                 return context.Response.WriteAsync(context.Exception.ToString());
             },
-            OnTokenValidated = context =>
-            {
-                // Log the validated token
-                var validatedToken = context.SecurityToken as JwtSecurityToken;
-                if (validatedToken != null)
-                {
-                    Debugging.print($"Validated Token: {validatedToken.RawData}");
-                }
-                return Task.CompletedTask;
-            },
+            
     };
 });
 

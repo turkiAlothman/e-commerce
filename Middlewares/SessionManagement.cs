@@ -25,45 +25,10 @@ namespace e_commerce.Middlewares
             Debugging.print(newToken);
             var handler = new JwtSecurityTokenHandler();
             var jwtSecurityToken = handler.ReadJwtToken(newToken);
-
-
-            foreach (var item in ValidateToken(newToken).Claims)
-            {
-                Debugging.print(item);
-            } 
-
-
-
-            Debugging.print(jwtSecurityToken);
             
             await next.Invoke(context);
         }
     
     
-    public static ClaimsPrincipal ValidateToken(string token)
-    {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var validationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false, 
-            ValidateAudience = false,
-            ValidateLifetime = false,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aEaAJ86htbtZ1a1TCTZIXHTFdbXU3jYuXBEA5Pya+5Y3q3gaY+HYx0UjhyeQxJVExAnhMvbNqLTVYFrYlwIDAQAB")),
-            ClockSkew = TimeSpan.Zero // Optional: eliminate clock skew
-        };
-
-        try
-        {
-            var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-            return principal;
-        }
-        catch (Exception ex)
-        {
-            // Token validation failed
-            Debugging.print($"Token validation failed: {ex.Message}");
-            return null;
-        }
-    }
     }
 }
