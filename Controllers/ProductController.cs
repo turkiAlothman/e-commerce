@@ -23,6 +23,7 @@ namespace e_commerce.Controllers
             _productRepository = productRepository;
         }
         
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] int pageNumber = 1 , [FromQuery] int pageSize = 10){
             

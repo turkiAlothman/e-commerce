@@ -18,7 +18,7 @@ namespace e_commerce.Services
         public JwtManagement(IConfiguration Configuration){
             this.Configuration = Configuration;
         } 
-        public String GenerateToken(string id = null,string Email = null,ProductItem[] products = null) {
+        public String GenerateToken(string id = null, string Email = null, ProductItem[] products = null, bool Signed_up = false) {
                 
             string key =  Configuration.GetValue<String>("PrivateKey")!;
 
@@ -32,12 +32,17 @@ namespace e_commerce.Services
             var TokenDescriptor = new SecurityTokenDescriptor {
                 
                 Subject = new ClaimsIdentity(new[]{
-                    new Claim("id", id),
-                    new Claim(ClaimTypes.Country, "KSA"),
-                    new Claim(ClaimTypes.Email, Email),
-                    new Claim("products", Products_string),
                     new Claim("exp", new DateTimeOffset(DateTime.UtcNow.AddDays(1)).ToUnixTimeSeconds().ToString()),
+                    new Claim(ClaimTypes.Country, "KSA"),
+                    new Claim("id", id ?? ""),
                     new Claim("platform", "browser"),
+                    new Claim(ClaimTypes.Email, Email ?? ""),
+                    new Claim("timezone", "True"),
+                    new Claim("products", Products_string),
+                    new Claim("last_activity", ""),
+                    new Claim("signed_in", "True"),
+                    
+                    
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),SecurityAlgorithms.HmacSha256Signature),

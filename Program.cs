@@ -75,7 +75,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseMiddleware<SessionManagement>();
+// session middle ware just in cart controller
+app.UseWhen(context => context.Request.Path.StartsWithSegments("/api/Cart"),AppBuilder => AppBuilder.UseMiddleware<SessionManagement>());
 
 app.UseAuthentication();
 app.UseAuthorization();

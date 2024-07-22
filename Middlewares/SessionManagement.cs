@@ -19,14 +19,20 @@ namespace e_commerce.Middlewares
             this.jwt = jwt;
         }
         public async Task Invoke(HttpContext context){
-            string newToken = jwt.GenerateToken("22","turkialothman@jfn"); 
-            context.Request.Headers["Authorization"] = newToken;
+            string token =  context.Request.Cookies["jwt"];
 
-            Debugging.print(newToken);
-            var handler = new JwtSecurityTokenHandler();
-            var jwtSecurityToken = handler.ReadJwtToken(newToken);
+            if(token == null)
+                token = jwt.GenerateToken();
+            
+            context.Request.Headers["Authorization"] = token;
+            
+            Debugging.print(new JwtSecurityTokenHandler().ReadToken(token));
+
+            context.Response.Cookies.Append("jwt",token);
             
             await next.Invoke(context);
+
+   
         }
     
     
