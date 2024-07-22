@@ -8,7 +8,7 @@ import { pagination} from "./Components.js";
 ///<reference path="jquery-3.6.0.min.js" />
 
 var pagesize = 9;
-var pageNumber = 2;
+var pageNumber = 1;
 
 window.onload = function() {
         
@@ -16,9 +16,13 @@ window.onload = function() {
         $("#products").empty()
         $("#pagination").empty()
         $('#loading').show();
+        
+        var url ="/api/Product?pageNumber="+number+"&pageSize="+size+"";
+        // window.history.pushState(url,'Updated the URL',url );
+        
         $.ajax({
             type: "GET",
-            url: "/api/Product?pageNumber="+number+"&pageSize="+size+"",
+            url: url,
             data: "data",
             success: function (response) {
                 response.data.forEach(element => {
@@ -40,7 +44,6 @@ window.onload = function() {
 
     $(document).on("click",".page-link",function(e){
         var dataIndex = $(e.target).data("index");
-        console.log(dataIndex);
         pageNumber = dataIndex;
         GetProducts(pagesize,pageNumber);
     })
