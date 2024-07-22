@@ -10,7 +10,7 @@ export function createProductCard(element) {
                 <div class="card-body">
                     <h5 class="card-title">${element.productName}</h5>
                     <p class="card-text">Price: $${element.price}</p>
-                    <a href="/home/details" class="btn btn-primary">View Details</a>
+                    <a href="/${element.id}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
         </div>
@@ -49,11 +49,6 @@ export function pagination(pageNumber, pagesize, count) {
                 `
             middle = middle +`<li class="page-item"><a class="page-link" data-index="${pageNumber +1}" href="javascript:void(0)">${pageNumber + 1}</a></li>`
             }
-    
-    
-    
-    
-
 
     return `
                 <nav aria-label="Page navigation example">
@@ -68,5 +63,31 @@ export function pagination(pageNumber, pagesize, count) {
             </li>
         </ul>
         </nav>
+    `;
+}
+
+
+
+export function product(element) {
+    if(element.imageUrl == null) element.imageUrl = placeholder;
+    return `
+       <div class="card">
+                        <img src="${element.imageUrl}" class="card-img-top" alt="Product Image">
+                        <div class="card-body">
+                            <h3 class="card-title pb-4">${element.productName}</h3>
+                            <p class="card-text">
+                                <strong>Description:</strong> ${element.describtion}
+                            </p>
+                            <p class="card-text">
+                                <strong>Price:</strong> $${element.price}
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock Quantity:</strong> ${element.quantity}
+                            </p>
+                            <div class="d-grid">
+                                <button class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
     `;
 }

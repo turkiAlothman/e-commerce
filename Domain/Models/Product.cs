@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace e_commerce.Domain.Models
 {
-    public class Product
+    public class Product: BaseModel
     {
         public Product(string productName, string Describtion, double Price, int Quantity,string imageUrl = null)
         {
@@ -15,9 +15,7 @@ namespace e_commerce.Domain.Models
             this.imageUrl = imageUrl;
 
         }
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set;}
+
         public string productName {set;get;}
         public string Describtion {set;get;}
         public double Price {set;get;}

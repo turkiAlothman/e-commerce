@@ -1,23 +1,27 @@
+@model Product
+
 <!-- Product Details Section -->
     <section class="py-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Product Image">
+                    <div class="spinner-border text-primary mb-11" id="loading" style="position: absolute; right: 50%;"></div>
+                    <div class="card" id="product">
+                        @{Model.imageUrl = Model.imageUrl ?? "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081"; }
+                        <img src="@Model.imageUrl" class="card-img-top" alt="Product Image">
                         <div class="card-body">
-                            <h3 class="card-title pb-4">Product Name</h3>
+                            <h3 class="card-title pb-4">@Model.productName </h3>
                             <p class="card-text">
-                                <strong>Description:</strong> This is a detailed description of the product. It highlights the features, benefits, and other important information that customers might want to know.
+                                <strong>Description:</strong> @Model.Describtion
                             </p>
                             <p class="card-text">
-                                <strong>Price:</strong> $49.99
+                                <strong>Price:</strong> $@Model.Price
                             </p>
                             <p class="card-text">
-                                <strong>Stock Quantity:</strong> 150
+                                <strong>Stock Quantity:</strong> @Model.Quantity
                             </p>
                             <div class="d-grid">
-                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-primary" data-product_id="@Model.Id" id="addchart">Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -25,3 +29,4 @@
             </div>
         </div>
     </section>
+<script src="js/details.js" type="module"></script>
