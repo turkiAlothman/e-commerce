@@ -12,9 +12,9 @@ namespace e_commerce.Middlewares
     public class SessionManagementMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly JwtManagement jwt;
+        private readonly JwtService jwt;
 
-        public SessionManagementMiddleware(RequestDelegate next, JwtManagement jwt){
+        public SessionManagementMiddleware(RequestDelegate next, JwtService jwt){
             this.next = next;
             this.jwt = jwt;
         }

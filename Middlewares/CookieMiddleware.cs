@@ -12,9 +12,9 @@ namespace e_commerce.Middlewares
     public class CookieMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly JwtManagement jwt;
+        private readonly JwtService jwt;
 
-        public CookieMiddleware(RequestDelegate next, JwtManagement jwt){
+        public CookieMiddleware(RequestDelegate next, JwtService jwt){
             this.next = next;
             this.jwt = jwt;
         }

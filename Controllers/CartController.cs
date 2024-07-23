@@ -1,6 +1,7 @@
 
 using e_commerce.Domain.Models;
 using e_commerce.Domain.Repositories.Interfaces;
+using e_commerce.Services;
 using e_commerce.utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,10 @@ namespace e_commerce.Controllers
     {
 
         private readonly IProductRepository _ProductRepository;
-        private readonly IAuthorizationPolicyProvider _policyProvider;
-        public CartController(IProductRepository productRepository,IAuthorizationPolicyProvider policyProvider){
+        private readonly JwtService jwt;
+        public CartController(IProductRepository productRepository,JwtService jwt){
             this._ProductRepository = productRepository;
-            this._policyProvider = policyProvider;
+            this.jwt = jwt;
         }
 
         [HttpPost("{ProductId}")]
@@ -40,24 +41,40 @@ namespace e_commerce.Controllers
             // get signed_in claim
             bool signedIn =  bool.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "signed_in")!.Value);
             
-
-            Debugging.print( (await _policyProvider.GetPolicyAsync("signed_in")).Requirements.First().ToString());
             if(!signedIn){
                 string productString = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "products")!.Value;
                 List<ProductItem> items = JsonConvert.DeserializeObject<List<ProductItem>>(productString);
                 
                 Debugging.print(items.Count);
 
+                bool found =false;
                 foreach (ProductItem item in items)
                 {
-                    if(item.Quentity + 1 > product.Quantity)
-                        return UnprocessableEntity(new {message ="Insufficient product quantity available"});
+                    if(item.ProductId == product.Id)
+                    {
+                        if(item.Quentity + 1 > product.Quantity)
+                            return UnprocessableEntity(new {message ="Insufficient product quantity available"});
+                        found = true;
+                        item.Quentity +=1;
+                    }                        
+                            
                 }
 
+                
+                if(!found)
+                    items.Add(new ProductItem{ProductId = product.Id ,Quentity =1});
+                
+                string token = jwt.GenerateToken(products:items.ToArray());
+                HttpContext.Response.Cookies.Append("jwt","");
             }
             
             return Ok(new {message = ""});
             
         } 
+    
+        public async Task<ActionResult> GetCart(){
+            List<Product> items =  JsonConvert.DeserializeObject<List<Product>>(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "products")!.Value);
+            return Ok(items);
+        }
     }
 }

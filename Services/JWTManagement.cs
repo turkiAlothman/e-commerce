@@ -12,10 +12,10 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace e_commerce.Services
 {
-     public class JwtManagement
+     public class JwtService
     {
         private readonly IConfiguration Configuration;
-        public JwtManagement(IConfiguration Configuration){
+        public JwtService(IConfiguration Configuration){
             this.Configuration = Configuration;
         } 
         public String GenerateToken(string id = null, string Email = null, ProductItem[] products = null, bool Signed_up = false) {

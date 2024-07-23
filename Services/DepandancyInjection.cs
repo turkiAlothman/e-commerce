@@ -8,7 +8,7 @@ namespace e_commerce.Services
     public static class DepandancyInjection
     {
         public static void AddServices(this IServiceCollection collection){
-            collection.AddTransient<JwtManagement>();
+            collection.AddTransient<JwtService>();
         }
     }
 }
