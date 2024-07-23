@@ -4,14 +4,11 @@ This simple e-commerce application, built with ASP.NET Core using the MVC archit
 
 
 ## project's dependencies and packages
-- **Humanizer:** provide utilizations to convert DateTime object into human readble format date.
-- **MimeKit:** Mail client tool used to sends emails within the application.
+
+- **MongoDB.Driver:** Mongodb Database Driver for ASP.NET Core.
+- **JwtBearer:** provide jwt utilitis(token generation, token decoding, token signing).
 - **JsonPatch:** provide utilizations to apply a smooth patch request.
 - **NewtonsoftJson:** object to json converter.
-- **Pomelo.EntityFrameworkCore.MySql** Mysql DBMS driver.
-- **Microsoft.EntityFrameworkCore** most pupoler ORM system in asp.net.
-- **RandomString4Net** - random text generator.
-
 
 ### user authentication and registration
 
