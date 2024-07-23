@@ -28,7 +28,9 @@ window.onload = function() {
                 return
             }
             
-            send("/api/Cart/"+id,"POST")
+            send("/api/Cart/"+id,"POST",function (response) {
+                console.log(response);          
+              })
             data.data("count",count + 1)
             data.val(count + 1)
         }
@@ -37,35 +39,44 @@ window.onload = function() {
             if (count == 1) {
                 return
             }
-            send("/api/Cart/"+id,"DELETE")
+            send("/api/Cart/"+id,"DELETE",function (response) {
+                console.log(response);          
+              })
             data.data("count",count - 1)
             data.val(count - 1)
         }
         else if(action === "delete"){
-            send("/api/Cart/remove/"+id,"DELETE")
+            send("/api/Cart/remove/"+id,"DELETE",function (response) {
+                console.log(response);          
+              })
             card.remove()
         }
     })
 
 
 
-function send(url, method){
-        $.ajax({
-          type: method,
-          url: url,
-          data: "data",
-          success: function (response) {
-            console.log(response);          
-          },
-          error:function(response){
-          }
+        function send(url, method,func){
+                $.ajax({
+                type: method,
+                url: url,
+                data: "data",
+                success: func,
+                error: function(status){
+                    console.log(status.responseJSON.message);
+                    $("#error-p").text(status.responseJSON.message)
+                    $("#odalfail").modal("show")
+                }
 
 
-      });
-      
-
-
+            });
 }
+
+
+$("#checkout").on("click",function(){
+    send("/api/Cart/checkout","POST",function (response) {
+        $("#successModal").modal("show")      
+      })
+})
 
 
 }

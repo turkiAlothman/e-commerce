@@ -3,11 +3,9 @@ using e_commerce.Configurations;
 using e_commerce.Domain.Repositories;
 using e_commerce.Middlewares;
 using e_commerce.utils;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using Microsoft.Extensions.Options;
 using e_commerce.Services;
 using Microsoft.IdentityModel.Tokens;
+using e_commerce.DepandancyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,38 +17,15 @@ builder.Services.AddServices();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization(Options => Options.AddPolicy("signed_in", policy => policy.RequireClaim("signed_in","true","True")));
 
+
+// set Http request Body Limit to ~ 30MB
+builder.WebHost.ConfigureKestrel(Options => Options.Limits.MaxRequestBodySize = 30_000_000);
+
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("PrivateKey"));
 
-builder.Services.AddAuthentication(Options => {
-    Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    
-    }).AddJwtBearer(
-        Options => {
-            Options.UseSecurityTokenValidators=true;
-            Options.TokenValidationParameters = new TokenValidationParameters{
-            ValidateIssuer = false, 
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key)
-        };
-    
-    Options.Events = new JwtBearerEvents{
-        OnMessageReceived = context => {
-                context.Token = context.Request.Headers["Authorization"];
-            return Task.CompletedTask;
-        },
+// set JWT configuraton Options with a exntestion funtion
+builder.Services.AddJwt(key);
 
-        OnAuthenticationFailed = context =>
-            {
-                // Log the error
-                Debugging.print(context.Exception.ToString());
-                return context.Response.WriteAsync(context.Exception.ToString());
-            },
-            
-    };
-});
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("Database"));
 
@@ -61,26 +36,25 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 
-}else
+}
+else
 {   
     app.UseDeveloperExceptionPage(); 
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseMiddleware<CookieMiddleware>();
-app.UseMiddleware<SessionManagementMiddleware>();
 
-// session middle ware just in cart controller
-// app.UseWhen(context => context.Request.Path.StartsWithSegments("/api/Cart"),AppBuilder => AppBuilder.UseMiddleware<SessionManagementMiddleware>());
+// middleware to handle the session
+app.UseMiddleware<SessionManagementMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -89,6 +63,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Products}/{action=Index}/{id?}");
 
+// factory that insert dummy data into a database
 Seeder.InsertDummyData(app);
 
 app.Run();

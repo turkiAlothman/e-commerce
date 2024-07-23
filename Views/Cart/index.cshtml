@@ -1,6 +1,41 @@
 @model IEnumerable<ShoppingCartItem>
   
+@* fail  Model Start *@
 
+<div class="modal" id="odalfail" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">error</h5>
+      </div>
+      <div class="modal-body">
+        <p id="error-p"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="window.location.replace('/');" class="btn btn-primary">back to home page</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@* sucess  Model Start *@
+
+<div class="modal" id="successModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">success</h5>
+      </div>
+      <div class="modal-body">
+        <p>your payment was successful!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="window.location.replace('/');" class="btn btn-primary">yes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- toast model start-->
 <div class="toast" id="errormessage" role="alert" aria-live="assertive" aria-atomic="true">
@@ -65,7 +100,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Total: $@Total</h5>
-                            <button class="btn btn-primary btn-lg btn-block">Checkout</button>
+                            <button class="btn btn-primary btn-lg btn-block" id="checkout">Checkout</button>
                         </div>
                     </div>
                 </div>

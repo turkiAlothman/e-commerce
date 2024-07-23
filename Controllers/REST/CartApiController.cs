@@ -63,7 +63,7 @@ namespace e_commerce.Controllers
                     if(item.ProductId == product.Id)
                     {
                         if(item.Quentity + 1 > product.Quantity)
-                            return UnprocessableEntity(new {message ="Insufficient product quantity available"});
+                            return UnprocessableEntity(new {message =$"Insufficient product quantity available. There are only {product.Quantity} units of {product.productName} product available"});
                         found = true;
                         item.Quentity +=1;
                     }                        
@@ -234,7 +234,7 @@ namespace e_commerce.Controllers
                 int count = item.count;
                 
                 if(count > Quantity)
-                    return UnprocessableEntity(new {message ="Insufficient product quantity available"});
+                    return UnprocessableEntity(new {message =$"Insufficient product quantity available. There are only {Quantity} units of {item.product.productName} product available"});
                 
                 item.product.Quantity = Quantity - count;   
             }
