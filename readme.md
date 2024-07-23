@@ -155,7 +155,7 @@ Upon the user's initial request, a JWT session will be created that holds an emp
 
 - View products
 - View product details
-- Add products to the shopping cart
+- Add and remove products from the shopping cart
 
 However, users cannot checkout until they authenticate. Once a user authenticates (signs in or signs out), the products stored in the shopping cart within the session will be copied to the database. This ensures the shopping cart can persist indefinitely.
 
