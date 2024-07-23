@@ -7,10 +7,28 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_DATABASE=ecommerce
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
     ports:
       - 27017:27017
     volumes:
       - mongo-data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+  
+  e-commerce:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: e-commerce
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_DB_HOST=mongo
+      - MONGO_DB_PORT=27017
+      - MONGO_DB_NAME=mydefaultdb
+      - MONGO_DB_USER=admin
+    ports:
+      - 8080:8080
 
 volumes:
   mongo-data:
