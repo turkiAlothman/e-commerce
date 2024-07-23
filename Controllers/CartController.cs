@@ -59,21 +59,21 @@ namespace e_commerce.Controllers
                     }                        
                             
                 }
-
                 
                 if(!found)
-                    items.Add(new ProductItem{ProductId = product.Id ,Quentity =1});
+                    items.Add(new ProductItem{ProductId = product.Id ,Quentity = 1});
                 
                 string token = jwt.GenerateToken(products:items.ToArray());
-                HttpContext.Response.Cookies.Append("jwt","");
+                HttpContext.Response.Cookies.Append("jwt",token);
             }
             
             return Ok(new {message = ""});
             
         } 
-    
+
+        [HttpGet]
         public async Task<ActionResult> GetCart(){
-            List<Product> items =  JsonConvert.DeserializeObject<List<Product>>(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "products")!.Value);
+            List<ProductItem> items =  JsonConvert.DeserializeObject<List<ProductItem>>(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "products")!.Value);
             return Ok(items);
         }
     }
