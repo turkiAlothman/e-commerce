@@ -34,6 +34,8 @@ The entire application, including the database and web server, has been built us
 - **JavaScript**
 - **HTML**
 - **CSS**
+- **Bootstrap**
+- **jQuery**
 - **Razor**
 
 ## project's packages
