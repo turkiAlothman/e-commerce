@@ -12,7 +12,7 @@ using e_commerce.Extensions;
 using Microsoft.AspNetCore.Authorization;
 namespace e_commerce.Controllers
 {
-    [Authorize]
+    [Authorize(Policy ="signed_in")]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase

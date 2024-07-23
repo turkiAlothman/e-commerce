@@ -9,26 +9,17 @@ using System.Text;
 
 namespace e_commerce.Middlewares
 {
-    public class SessionManagementMiddleware
+    public class CookieMiddleware
     {
         private readonly RequestDelegate next;
         private readonly JwtManagement jwt;
 
-        public SessionManagementMiddleware(RequestDelegate next, JwtManagement jwt){
+        public CookieMiddleware(RequestDelegate next, JwtManagement jwt){
             this.next = next;
             this.jwt = jwt;
         }
         public async Task Invoke(HttpContext context){
-            string token =  context.Request.Headers["Authorization"];
-
-            if(token == null)
-                token = jwt.GenerateToken();
-            
-            context.Request.Headers["Authorization"] = token;
-            
-            Debugging.print(new JwtSecurityTokenHandler().ReadToken(token));
-
-            context.Response.Cookies.Append("jwt",token);
+            context.Request.Headers["Authorization"]  =  context.Request.Cookies["jwt"];
             
             await next.Invoke(context);
 

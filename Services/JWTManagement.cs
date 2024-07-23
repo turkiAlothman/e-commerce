@@ -40,7 +40,7 @@ namespace e_commerce.Services
                     new Claim("timezone", "True"),
                     new Claim("products", Products_string),
                     new Claim("last_activity", ""),
-                    new Claim("signed_in", "True"),
+                    new Claim("signed_in", "False"),
                     
                     
                 }),

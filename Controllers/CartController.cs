@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using e_commerce.Domain.Models;
 using e_commerce.Domain.Repositories.Interfaces;
 using e_commerce.utils;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-
+using Newtonsoft.Json;
 namespace e_commerce.Controllers
 {
     [Authorize]
@@ -18,8 +14,10 @@ namespace e_commerce.Controllers
     {
 
         private readonly IProductRepository _ProductRepository;
-        public CartController(IProductRepository productRepository){
+        private readonly IAuthorizationPolicyProvider _policyProvider;
+        public CartController(IProductRepository productRepository,IAuthorizationPolicyProvider policyProvider){
             this._ProductRepository = productRepository;
+            this._policyProvider = policyProvider;
         }
 
         [HttpPost("{ProductId}")]
@@ -39,14 +37,26 @@ namespace e_commerce.Controllers
             if (product == null)
                 return NotFound(new {message = "product not found"});
             
-            HttpContext.User.Claims.FirstOrDefault(claim => {
-                Debugging.print(claim.Issuer);
-                Debugging.print(claim.Value);
-                Debugging.print(claim.Subject);
-                Console.WriteLine("\n\n");
-                return claim.Value =="d";
-            });
-            return Ok(new {message = HttpContext.User.Claims.});
+            // get signed_in claim
+            bool signedIn =  bool.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "signed_in")!.Value);
+            
+
+            Debugging.print( (await _policyProvider.GetPolicyAsync("signed_in")).Requirements.First().ToString());
+            if(!signedIn){
+                string productString = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "products")!.Value;
+                List<ProductItem> items = JsonConvert.DeserializeObject<List<ProductItem>>(productString);
+                
+                Debugging.print(items.Count);
+
+                foreach (ProductItem item in items)
+                {
+                    if(item.Quentity + 1 > product.Quantity)
+                        return UnprocessableEntity(new {message ="Insufficient product quantity available"});
+                }
+
+            }
+            
+            return Ok(new {message = ""});
             
         } 
     }

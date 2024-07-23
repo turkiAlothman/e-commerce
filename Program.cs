@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.Extensions.Options;
 using e_commerce.Services;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRepositories();
 builder.Services.AddServices();
+builder.Services.AddAuthorization(Options => Options.AddPolicy("signed_in", policy => policy.RequireClaim("signed_in","true","True")));
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("PrivateKey"));
 
@@ -25,7 +25,7 @@ builder.Services.AddAuthentication(Options => {
     Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     
     }).AddJwtBearer(
-        Options =>{
+        Options => {
             Options.UseSecurityTokenValidators=true;
             Options.TokenValidationParameters = new TokenValidationParameters{
             ValidateIssuer = false, 
@@ -75,8 +75,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseMiddleware<CookieMiddleware>();
+
 // session middle ware just in cart controller
-app.UseWhen(context => context.Request.Path.StartsWithSegments("/api/Cart"),AppBuilder => AppBuilder.UseMiddleware<SessionManagement>());
+app.UseWhen(context => context.Request.Path.StartsWithSegments("/api/Cart"),AppBuilder => AppBuilder.UseMiddleware<SessionManagementMiddleware>());
 
 app.UseAuthentication();
 app.UseAuthorization();
