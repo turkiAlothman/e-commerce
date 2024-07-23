@@ -99,6 +99,11 @@ namespace e_commerce.Controllers
 
             
         }
+        [HttpGet]
+        public IActionResult signout(){
+            HttpContext.Response.Cookies.Delete("jwt");
+            return Redirect("/");
+        }
 
     }
 }

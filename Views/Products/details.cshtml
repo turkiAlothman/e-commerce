@@ -62,7 +62,7 @@
                                 <strong>Stock Quantity:</strong> @Model.Quantity
                             </p>
                             <div class="d-grid">
-                                <button class="btn btn-primary" data-product_id="@Model.Id" id="addchart">Add to Cart</button>
+                                <button class="btn btn-primary" data-product_id="@Model.Id" id="addchart" @(Model.Quantity ==0 ?"disabled":"")> @(Model.Quantity ==0 ?"Sold out":"Add to Cart") </button>
                             </div>
                         </div>
                     </div>

@@ -18,14 +18,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="Auth/signin">login</a>
-                    </li>
+                    @if(User.Claims.FirstOrDefault(c=>c.Type == "signed_in").Value == "False")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="Auth/signin">login</a>
+                        </li>
+                    }
+                    else{
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="Auth/signout">signout</a>
+                        </li>
+                    }
+
                     <li class="nav-item">
                         <a class="nav-link" href="/cart">cart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
                     </li>
                 </ul>
             </div>

@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <a href="/@item.product.Id"> <img src="@item.product.imageUrl" class="img-fluid" alt="Product Image"></a> 
+                                    <a href="/@item.product.Id"> <img src="@(item.product.imageUrl ?? "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081")" class="img-fluid" alt="Product Image"></a> 
                                 </div>
                                 <div class="col-md-8">
                                     <h5>@item.product.productName</h5>
