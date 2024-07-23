@@ -3,14 +3,46 @@
 This simple e-commerce application, built with ASP.NET Core using the MVC architecture, allows users to view products, add items to their cart, and make payments. The application is monolithic and includes both HTML endpoints and RESTful APIs to enhance system responsiveness. You can view the RESTful APIs at the /swagger route. Some endpoints require authentication; please register at /auth/signup (accessible via the top right corner) to authenticate yourself. The application uses JWT combined with cookies for session management and tracking.
 
 
-## project's dependencies and packages
+## Setup Instructions
+The entire application, including the database and web server, has been built using Docker and Docker Compose. To run the application, ensure that you have Docker Engine installed on your machine.
+
+1. **Clone the repository:**
+   ```sh
+   git clone <repository-url>
+
+2. **move to repository directory:**
+   ```sh
+   cd <repository-root>
+3. **move to repository directory:**
+   ```sh
+   docker-compose up
+   make sure that port 8080 is not busy. Visit http://localhost:8080. Dummy data will be inserted during the application setup process so that you can test the system.  
+
+
+## Programming Languages and Frameworks
+
+#### C#
+
+- **Version:** 12.0
+
+#### ASP.NET Core
+
+- **Version:** 8
+
+#### Frontend Technologies
+- **JavaScript**
+- **HTML**
+- **CSS**
+- **Razor**
+
+## project's packages
 
 - **MongoDB.Driver:** Mongodb Database Driver for ASP.NET Core.
 - **JwtBearer:** provide jwt utilitis(token generation, token decoding, token signing).
 - **JsonPatch:** provide utilizations to apply a smooth patch request.
 - **NewtonsoftJson:** object to json converter.
 
-### user authentication and registration
+## user authentication and registration
 
 #### User Login
 
@@ -22,13 +54,6 @@ This simple e-commerce application, built with ASP.NET Core using the MVC archit
 - Employees can register for the system by receiving an invitation email containing a registration link.
 - To complete the registration process, employees click on the registration link provided in the invitation email.
 - Registration involves setting up a password and providing necessary details to create a user account.
-
-#### Password Management
-
-- Employees can reset their passwords if they forget them or need to change them for security reasons.
-- To reset the password, employees initiate the process by clicking on the "Reset Password" link.
-- An email containing a password reset link is sent to the employee's registered email address.
-- By clicking on the password reset link, employees can securely set a new password for their account.
 
 
 ## Authentication and Authorizations:
