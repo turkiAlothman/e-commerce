@@ -146,8 +146,18 @@ The entire application, including the database and web server, has been built us
 *Description:* perform Signou logic.  
 *Authentication Required:* false
 
+<br/>
+<br/>
 
+## System Behavior
 
+Upon the user's initial request, a JWT session will be created that holds an empty product list. This means shopping cart items will be stored in the JWT token. Unauthenticated users are allowed to:
+
+- View products
+- View product details
+- Add products to the shopping cart
+
+However, users cannot checkout until they authenticate. Once a user authenticates (signs in or signs out), the products stored in the shopping cart within the session will be copied to the database. This ensures the shopping cart can persist indefinitely.
 
 
 
