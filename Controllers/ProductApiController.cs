@@ -14,12 +14,12 @@ namespace e_commerce.Controllers
 {
     [Authorize(Policy ="signed_in")]
     [ApiController]
-    [Route("api/[controller]")]
-    public class ProductController : ControllerBase
+    [Route("api/Product")]
+    public class ProductApiController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
         
-        public ProductController(IProductRepository productRepository){
+        public ProductApiController(IProductRepository productRepository){
             _productRepository = productRepository;
         }
         

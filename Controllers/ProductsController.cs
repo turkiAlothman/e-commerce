@@ -3,15 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using e_commerce.Models;
 using e_commerce.Domain.Repositories.Interfaces;
 using e_commerce.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace e_commerce.Controllers;
 
-public class HomeController : Controller
+[Authorize]
+public class ProductsController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<ProductsController> _logger;
     private readonly IProductRepository _productRepository;
 
-    public HomeController(ILogger<HomeController> logger,IProductRepository _productRepository)
+    public ProductsController(ILogger<ProductsController> logger,IProductRepository _productRepository)
     {
         this._logger = logger;
         this._productRepository = _productRepository;
