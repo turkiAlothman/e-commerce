@@ -9,8 +9,9 @@ namespace e_commerce.Domain.Repositories.Interfaces
 {
     public interface ICartRepository
     {
-        public  Task<Cart> GetCart(string UserId);
-        public  Task update(Cart cart);
+        public Task<Cart> GetCart(string UserId);
+        public Task update(Cart cart);
+        public Task clear(string UserId);
         public Task create(Cart cart);
         
     }

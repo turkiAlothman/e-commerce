@@ -47,6 +47,21 @@ namespace e_commerce.Domain.Repositories
             await this._products.ReplaceOneAsync(p => p.Id == product.Id,product);
         }
 
+        public async Task updateRange(IEnumerable<Product> products){
+            var bluik =  new List<WriteModel<Product>>();
+            foreach (var product in products)
+            {
+                var filter = Builders<Product>.Filter.Eq(p=> p.Id,product.Id);
+                var update =  Builders<Product>.Update.Set(p => p.Quantity, product.Quantity);
+                var updateModel = new UpdateOneModel<Product>(filter, update);
+                bluik.Add(updateModel);
+            }
+
+            if(bluik.Any()){
+                await this._products.BulkWriteAsync(bluik);
+            }
+        }
+
         public async Task delete(string id){
             await this._products.DeleteOneAsync(p => p.Id == id);
         }

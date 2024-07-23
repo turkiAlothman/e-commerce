@@ -27,6 +27,11 @@ namespace e_commerce.Domain.Repositories.Implementations
         public async Task update(Cart cart){
             await this._carts.ReplaceOneAsync(c=>c.Id == cart.Id, cart);
         }
+
+        public async Task clear(string UserId){
+            var update =  Builders<Cart>.Update.Set(c=> c.products,[]);
+            await _carts.UpdateOneAsync(c=>c.UserId == UserId,update);
+        }        
         public async Task create(Cart cart){
            await this._carts.InsertOneAsync(cart);
         }

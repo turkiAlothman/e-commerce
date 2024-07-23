@@ -1,6 +1,7 @@
 
 using e_commerce.Domain.Models;
 using e_commerce.Domain.Repositories.Interfaces;
+using e_commerce.DTOs.Responses;
 using e_commerce.Services;
 using e_commerce.utils;
 using Microsoft.AspNetCore.Authorization;
@@ -202,6 +203,46 @@ namespace e_commerce.Controllers
             }
 
             return Ok(new {message = "Product removed successfully"});
+        }
+
+        [Authorize(Policy ="signed_in")]
+        [HttpPost("checkout")]
+        public async Task<IActionResult> Checkout(){
+
+            List<ProductItem> items;
+            Cart cart = null;
+            
+            if(!signedIn)
+            {
+                string itemsString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "products")!.Value;
+                items = JsonConvert.DeserializeObject<List<ProductItem>>(itemsString)!;
+            }
+            else
+            {
+                cart = await this._CartRepository.GetCart(UserId);
+                items = cart.products;
+            }
+
+            if(items.Count() == 0)
+                return UnprocessableEntity(new {message ="Cart is empty"});
+
+            IEnumerable<ShoppingCartItem> joied = await this._ProductRepository.join(items);
+
+            foreach (ShoppingCartItem item in joied)
+            {
+                int Quantity = item.product.Quantity;
+                int count = item.count;
+                
+                if(count > Quantity)
+                    return UnprocessableEntity(new {message ="Insufficient product quantity available"});
+                
+                item.product.Quantity = Quantity - count;   
+            }
+
+             await _ProductRepository.updateRange(joied.Select(x => x.product));
+             await _CartRepository.clear(UserId);
+             
+             return Ok(new {message = "payments Successfull !"});
         }
 
     

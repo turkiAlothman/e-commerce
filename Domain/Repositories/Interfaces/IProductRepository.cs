@@ -13,6 +13,7 @@ namespace e_commerce.Domain.Repositories.Interfaces
         public Task<Product> getById(string id);
         public Task create(Product product);
         public Task update(Product product);
+        public Task updateRange(IEnumerable<Product> products);
         public Task delete(string id);
         public Task<long> count();
 
