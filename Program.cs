@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRepositories();
 builder.Services.AddServices();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization(Options => Options.AddPolicy("signed_in", policy => policy.RequireClaim("signed_in","true","True")));
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("PrivateKey"));

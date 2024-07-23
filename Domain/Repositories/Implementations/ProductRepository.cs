@@ -29,7 +29,15 @@ namespace e_commerce.Domain.Repositories
             return await this._products.Find(_ => true).Skip(start).Limit(pageSize).ToListAsync();
         }
         public async Task<Product> getById(string id){
-            return await _products.Find(p => p.Id == id).FirstOrDefaultAsync();
+             try
+            {
+                return await _products.Find(p => p.Id == id).FirstOrDefaultAsync();
+            }
+             catch (FormatException e)
+            {
+                return null;
+            }
+            
         }
         public async Task create(Product product){
             await this._products.InsertOneAsync(product);
