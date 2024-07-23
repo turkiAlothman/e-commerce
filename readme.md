@@ -43,55 +43,48 @@ The entire application, including the database and web server, has been built us
 - **JsonPatch:** provide utilizations to apply a smooth patch request.
 - **NewtonsoftJson:** object to json converter.
 
-## user authentication and registration
+## RESTful APIs
 
-#### User Login
+### CartApi
 
-- Employees can securely log in to the system using their email address and password.
-- Upon successful authentication, employees gain access to their personalized dashboard and features.
+**POST** /api/Cart/{ProductId}  
+*Description:* Adds a product to the cart.  
+*Authentication Required:* false
 
-#### User Registration
+**DELETE** /api/Cart/{ProductId}  
+*Description:* Removes a product from the cart.  
+*Authentication Required:* false
 
-- Employees can register for the system by receiving an invitation email containing a registration link.
-- To complete the registration process, employees click on the registration link provided in the invitation email.
-- Registration involves setting up a password and providing necessary details to create a user account.
+**GET** /api/Cart  
+*Description:* Retrieves the current cart contents.  
+*Authentication Required:* false
 
+**DELETE** /api/Cart/remove/{ProductId}  
+*Description:* Removes a specific product from the cart.  
+*Authentication Required:* false
 
-## Authentication and Authorizations:
+**POST** /api/Cart/checkout  
+*Description:* Initiates the checkout process for the current cart.  
+*Authentication Required:* false
 
-#### Authentication:
-- Users must authenticate before accessing any features mentioned above.
+### ProductApi
 
-#### Authorizations:
+**GET** /api/Product  
+*Description:* Retrieves a list of all products.  
+*Authentication Required:* false
 
-- All functionalities are accessible by authenticated users, except the following:
+**POST** /api/Product  
+*Description:* Creates a new product.  
+*Authentication Required:* true
 
-1. **Assigning Employees to a Specific Task**:
-   - Only the reporter (creator) of the task can assign employees to it.
+**GET** /api/Product/{id}  
+*Description:* Retrieves the details of a specific product.  
+*Authentication Required:* false
 
-2. **Removing Employees from a Specific Task**:
-   - Only the reporter (creator) of the task can remove employees from it.
+**PATCH** /api/Product/{id}  
+*Description:* Updates the details of a specific product.  
+*Authentication Required:* true
 
-3. **Editing Task Attributes (Title, Description, Status, Priority)**:
-   - Only the reporter (creator) or the assignee of the task can edit its attributes.
-
-4. **Adding Comments in a Specific Task**:
-   - All authenticated users can add comments to tasks.
-
-5. **Deleting Comments in a Specific Task**:
-   - Only the owner of the comment can delete it.
-
-6. **Inviting New Employees**:
-   - Only managers have the authority to invite new employees.
-
-7. **Creating New Projects**:
-   - Only managers have the authority to create new projects.
-
-8. **Adding Employees to a Project**:
-   - Only managers have the authority to add employees to projects.
-
-9. **Removing Employees from a Project**:
- - Only managers have the authority to remove employees from projects.
-
-10. **registration**:
- - employee cannot register until he invited by a manager.
+**DELETE** /api/Product/{id}  
+*Description:* Deletes a specific product.  
+*Authentication Required:* true
