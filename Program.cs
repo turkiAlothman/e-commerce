@@ -42,9 +42,11 @@ if (!app.Environment.IsDevelopment())
 else
 {   
     app.UseDeveloperExceptionPage(); 
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
+
+// this suppose to be hidden in the production. i just added it to make you able to view the endpoints
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 app.UseStaticFiles();
