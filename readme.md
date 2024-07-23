@@ -16,7 +16,8 @@ The entire application, including the database and web server, has been built us
 3. **move to repository directory:**
    ```sh
    docker-compose up
-   make sure that port 8080 is not busy. Visit http://localhost:8080. Dummy data will be inserted during the application setup process so that you can test the system.  
+   
+   - make sure that port 8080 is not busy. Visit http://localhost:8080. Dummy data will be inserted during the application setup process so that you can test the system.  
 
 
 ## Programming Languages and Frameworks
