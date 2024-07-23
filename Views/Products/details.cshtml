@@ -1,5 +1,45 @@
 @model Product
 
+
+
+@* sucess  Model Start *@
+
+<div class="modal" id="addModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">success</h5>
+      </div>
+      <div class="modal-body">
+        <p>product added successfully</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="window.location.replace('/cart');" class="btn btn-primary">cart page</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+@* fail  Model Start *@
+
+<div class="modal" id="addModalfail" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">error</h5>
+      </div>
+      <div class="modal-body">
+        <p id="error-p"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="window.location.replace('/');" class="btn btn-primary">back to home page</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Product Details Section -->
     <section class="py-5">
         <div class="container">
@@ -7,6 +47,7 @@
                 <div class="col-md-8">
                     <div class="spinner-border text-primary mb-11" id="loading" style="position: absolute; right: 50%;"></div>
                     <div class="card" id="product">
+                        
                         @{Model.imageUrl = Model.imageUrl ?? "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081"; }
                         <img src="@Model.imageUrl" class="card-img-top" alt="Product Image">
                         <div class="card-body">

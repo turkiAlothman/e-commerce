@@ -8,5 +8,21 @@ window.onload = function() {
         
         $("#addchart").on("click",function(){
           var id =  $("#addchart").data("product_id");
+            console.log(id)
+          $.ajax({
+            type: "POST",
+            url: "/api/Cart/" + id,
+            data: "data",
+            success: function (response) {
+              console.log(response.status);
+                $("#addModal").modal("show")            
+            },
+            error:function(response){
+              $("#error-p").text(response.responseJSON.message ?? "something went wrong")
+             $("#addModalfail").modal("show")
+            }
+
+
+        });
         })
   }

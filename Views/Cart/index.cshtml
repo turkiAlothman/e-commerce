@@ -1,3 +1,19 @@
+@model IEnumerable<ShoppingCartItem>
+  
+
+
+<!-- toast model start-->
+<div class="toast" id="errormessage" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+   <strong class="mr-auto">error</strong>
+  </div>
+  <div class="toast-body" id="errorbody">
+    There are only 30 units of this product available.
+  </div>
+</div>
+
+
+    <script src="js/cart.js" type="module"></script>
     <!-- Cart Section -->
     <section class="py-5">
         <div class="container">
@@ -5,58 +21,57 @@
             <div class="row">
                 <div class="col-md-8">
                     <!-- Cart Items -->
-                    <div class="card mb-4">
+                    
+                    @if(Model.Count() ==0 ){
+                         <span style="margin-top: 40px;"> <h6 class="card-title text-secondary">No item added to cart</h6> </span>
+                    }
+                    
+                    @foreach(ShoppingCartItem item in Model){
+                    <div class="card mb-4" id="card-@item.product.Id">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="Product Image">
+                                    <a href="/@item.product.Id"> <img src="@item.product.imageUrl" class="img-fluid" alt="Product Image"></a> 
                                 </div>
                                 <div class="col-md-8">
-                                    <h5>Product Name</h5>
-                                    <p class="text-muted">Price: $49.99</p>
+                                    <h5>@item.product.productName</h5>
+                                    <p class="text-muted">Price: $@item.product.Price</p>
                                     <div class="input-group mb-3" style="max-width: 120px;">
-                                        <button class="btn btn-outline-secondary btn-decrement" type="button">-</button>
-                                        <input type="text" class="form-control text-center quantity-input" value="1" readonly>
-                                        <button class="btn btn-outline-secondary btn-increment" type="button">+</button>
+                                        <button class="btn btn-outline-secondary btn-decrement incementb"   type="button" data-action="remove" data-product="@item.product.Id">-</button>
+                                        <input type="text" class="form-control text-center quantity-input" id="counter-@item.product.Id"  data-product="@item.product.Id" data-max="@item.product.Quantity" data-count="@item.count" value="@item.count" readonly>
+                                        <button class="btn btn-outline-secondary btn-increment incementb" data-product="@item.product.Id" type="button" data-action="add">+</button>
                                     </div>
-                                    <button class="btn btn-danger btn-sm">Remove</button>
+                                    <button class="btn btn-danger btn-sm incementb" data-product="@item.product.Id" data-action="delete">Remove</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="Product Image">
-                                </div>
-                                <div class="col-md-8">
-                                    <h5>Product Name</h5>
-                                    <p class="text-muted">Price: $29.99</p>
-                                    <div class="input-group mb-3" style="max-width: 120px;">
-                                        <button class="btn btn-outline-secondary btn-decrement" type="button">-</button>
-                                        <input type="text" class="form-control text-center quantity-input" value="2" readonly>
-                                        <button class="btn btn-outline-secondary btn-increment" type="button">+</button>
-                                    </div>
-                                    <button class="btn btn-danger btn-sm">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
+                    
+
+                    @{
+                        double Total=0;
+                        foreach(ShoppingCartItem item in  Model){
+                            Total += item.count * item.product.Price;
+                        }
+                    }
                     <!-- Add more cart items as needed -->
                 </div>
+                
+                @if(Model.Count() !=0){
+                
                 <div class="col-md-4">
                     <!-- Cart Summary -->
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Summary</h5>
-                            <p class="card-text">Subtotal: $109.97</p>
-                            <p class="card-text">Tax: $8.80</p>
-                            <h5 class="card-title">Total: $118.77</h5>
+                            <h5 class="card-title">Total: $@Total</h5>
                             <button class="btn btn-primary btn-lg btn-block">Checkout</button>
                         </div>
                     </div>
                 </div>
+                }
+               
+
             </div>
         </div>
     </section>
