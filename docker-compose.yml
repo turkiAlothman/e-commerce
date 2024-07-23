@@ -22,11 +22,6 @@ services:
     container_name: e-commerce
     depends_on:
       - mongo
-    environment:
-      - MONGO_DB_HOST=mongo
-      - MONGO_DB_PORT=27017
-      - MONGO_DB_NAME=mydefaultdb
-      - MONGO_DB_USER=admin
     ports:
       - 8080:8080
 

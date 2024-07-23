@@ -25,8 +25,6 @@ namespace e_commerce.Middlewares
                 token = jwt.GenerateToken();
             
             context.Request.Headers["Authorization"] = token;
-            
-            Debugging.print(new JwtSecurityTokenHandler().ReadToken(token));
 
             context.Response.Cookies.Append("jwt",token);
             
