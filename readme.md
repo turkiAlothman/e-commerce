@@ -45,6 +45,9 @@ The entire application, including the database and web server, has been built us
 - **JsonPatch:** provide utilizations to apply a smooth patch request.
 - **NewtonsoftJson:** object to json converter.
 
+<br/>
+<br/>
+
 ## RESTful APIs
 
 ### CartApi
@@ -93,6 +96,8 @@ The entire application, including the database and web server, has been built us
 
 
 
+<br/>
+<br/>
 
 ## Web Service APIs (HTML)
 
@@ -135,4 +140,44 @@ The entire application, including the database and web server, has been built us
 *Authentication Required:* false
 
 
+
+
+
+
+<br/>
+<br/>
+
+## Project Root Folders Description
+
+1. **Controllers**
+   - APIs Registeration. Part of the MVC architecture, responsible for handling logic and business processes.
+   - RESTful APIs registered in REST folder
+
+2. **Views**
+   - Part of the MVC architecture, responsible for rendering views and using the template engine.
+
+3. **Models**
+   - Contains domain classes used in the application (MongoDB documents).
+   - **Repository:** Houses the DB query logic and processes.
+
+4. **Services**
+   - Contains independent services that can be injected into other components.
+
+5. **Middlewares**
+   - Middleware components included in the request pipeline.
+
+6. **wwwroot**
+   - Contains application resources such as JavaScript, CSS, and other static files.
+
+7. **Utilities**
+   - Ensures code remains modular and organized.
+
+8. **Extensions**
+   - Contains extension methods.
+
+9. **Configurations**
+   - Houses structured configuration options.
+
+10. **DTOs (Data Transfer Objects)**
+    - Contains classes for requests and responses.
 
