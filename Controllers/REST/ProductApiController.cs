@@ -33,6 +33,7 @@ namespace e_commerce.Controllers
             return Ok(new {data = await data, count = await count});
         }
         
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> Products( string id){
             Product? product;
