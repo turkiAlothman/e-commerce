@@ -22,7 +22,6 @@ password = jioejv*U&&^
 - **Microsoft.EntityFrameworkCore** most pupoler ORM system in asp.net.
 - **RandomString4Net** - random text generator.
 
-## features
 
 ### user authentication and registration
 
@@ -43,79 +42,6 @@ password = jioejv*U&&^
 - To reset the password, employees initiate the process by clicking on the "Reset Password" link.
 - An email containing a password reset link is sent to the employee's registered email address.
 - By clicking on the password reset link, employees can securely set a new password for their account.
-
-
-
-
-### Tasks management Features
-
-#### Viewing Tasks
-
-- Employees can view all tasks assigned within the organization.
-- Task filtering options are available, allowing employees to filter tasks based on criteria such as status, priority, team, and project.
-- Employees can easily access tasks assigned specifically to them.
-
-#### Task Creation
-
-- Employees can create new tasks with various attributes including title, description, priority, status, type, start date, and due date.
-- Tasks can be assigned to multiple employees, facilitating collaboration.
-- Attachments can be added to tasks, providing additional context or resources.
-- Employees have the ability to comment on tasks, promoting communication and collaboration within the team.
-
-#### Editing and Deleting
-
-- Task attributes can be edited by double-clicking on the task.
-- Employees can delete their own comments to maintain task clarity and organization.
-- Tasks can be deleted if they are no longer relevant or necessary.
-
-
-### Projects management Features
-
-#### Project Creation
-
-- Employees can create new projects with various attributes, including:
-  - Title: A descriptive name for the project.
-  - Description: Details about the project objectives, scope, and requirements.
-  - Type: Categorization of the project (e.g., development, marketing, research).
-  - Start Date: The date when the project is scheduled to begin.
-  - Due Date: The deadline or expected completion date for the project.
-- Employees can add participants to the project, allowing for team collaboration and coordination.
-
-#### Project View
-
-- Employees have access to a comprehensive view of all current projects within the organization.
-- Detailed project views include:
-  - Participants: Employees can see a list of all participants involved in a specific project.
-  - Employee Statistics: Insights into employee contributions and performance within a particular project.
-  - Tasks: A list of tasks associated with the project, providing clarity on project milestones and progress.
-  - Activity Log: Records of all actions and updates made by employees related to the project.
-
-#### Project Editing
-
-- Employees have the ability to make modifications to projects, including:
-- Removing employees from specific projects to adjust team composition and responsibilities.
-
-
-
-### Employees and teams management features
-
-- View all employees within the organization including their contact info
-- Search for employees by their name
-- Filter employees by team
-- View all tasks assigned to the employee
-- View all tasks reported by the employee
-- View all activities applied by a specific employee
-- View all teams with their members
-
-### Employee Profile Features:
-
-- View personal information
-- View all assigned tasks
-- View all reported tasks
-- View all activities applied by the employee
-- View team affiliation
-- View projects the employee is participating in
-
 
 
 ## Authentication and Authorizations:
