@@ -90,3 +90,49 @@ The entire application, including the database and web server, has been built us
 **DELETE** /api/Product/{id}  
 *Description:* Deletes a specific product.  
 *Authentication Required:* true
+
+
+
+
+## Web Service APIs (HTML)
+
+### CartApi
+
+**POST** /  
+*Description:* home page that view products with pagination.  
+*Authentication Required:* false
+
+**GET** /{ProductId}  
+*Description:* product details page.  
+*Authentication Required:* false
+
+**GET** /cart 
+*Description:* Get user cart.  
+*Authentication Required:* false
+
+### authentication
+
+**GET** /Auth/signin  
+*Description:* signin page.  
+*Authentication Required:* false
+
+**POST** /Auth/signin  
+*Description:* signin loin logic.  
+*Authentication Required:* false
+
+
+**GET** /Auth/signup  
+*Description:* signup page.  
+*Authentication Required:* false
+
+**POST** /Auth/signup  
+*Description:* perform signup logic.  
+*Authentication Required:* false
+
+
+**Get** /Auth/signout  
+*Description:* perform Signou logic.  
+*Authentication Required:* false
+
+
+
