@@ -27,6 +27,5 @@ namespace e_commerce.Domain.Repositories.Implementations
         public async Task update(Cart cart){
             await this._carts.ReplaceOneAsync(c=>c.Id == cart.Id, cart);
         }
-        
     }
 }

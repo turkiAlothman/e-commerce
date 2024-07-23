@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using e_commerce.Domain.Models;
+using e_commerce.DTOs.Responses;
 
 namespace e_commerce.Domain.Repositories.Interfaces
 {
@@ -14,5 +15,7 @@ namespace e_commerce.Domain.Repositories.Interfaces
         public Task update(Product product);
         public Task delete(string id);
         public Task<long> count();
+
+        public Task<IEnumerable<ShoppingCartItem>> join(List<ProductItem> ids);
     }
 }

@@ -18,6 +18,7 @@ namespace e_commerce.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

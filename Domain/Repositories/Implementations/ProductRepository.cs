@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using e_commerce.Configurations;
 using e_commerce.Domain.Models;
 using e_commerce.Domain.Repositories.Interfaces;
+using e_commerce.DTOs.Responses;
 using e_commerce.utils;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -54,5 +55,15 @@ namespace e_commerce.Domain.Repositories
             return await this._products.CountDocumentsAsync(_=> true);
         }
         
+        public async Task<IEnumerable<ShoppingCartItem>> join(List<ProductItem> ids){
+            
+            var Filter =  Builders<Product>.Filter.In(p=>p.Id, ids.Select(p=>p.ProductId));
+            List<Product> products =  this._products.Find<Product>(Filter).ToList();
+            
+            var joinList = from productItem in ids
+            join product in products on productItem.ProductId equals product.Id
+            select new ShoppingCartItem {product = product , count = productItem.Quentity};
+            return joinList;
+        }
     }
 }

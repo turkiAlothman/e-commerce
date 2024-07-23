@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using e_commerce.Domain.Models;
+using e_commerce.DTOs.Responses;
 
 namespace e_commerce.Domain.Repositories.Interfaces
 {
