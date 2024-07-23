@@ -1,16 +1,6 @@
-# TaskManager
+# e-commerce
 
-***TaskManager*** is a user-friendly web application developed using ASP.NET Core 8. It serves as a comprehensive tool for organizations to effectively tasks across multiple projects and teams. Within this platform, employees have the flexibility to seamlessly create, delete, and update tasks as needed. Furthermore, they can enhance their task reports by incorporating comments, attachments, and additional details. For managers, TaskManager offers advanced functionalities such as project creation, employees invitations, and access to detailed statistics. These features empower managers to optimize project workflows and productivity within the organization.
-
-TaskManager is designed following the principles of ***Domain-Driven Design (DDD)*** and employing a ***clean architecture*** approach. It is structured into three main components: infrastructure, Domain, and Application. This setup ensures efficiency and maintainability.
-
-you can use the application here : https://taskmanager20240328032228.azurewebsites.net
-
-please use the below crediantils in order to access the application functionalities
-
-email = SattamDfo@yahoo.com
-<br/>
-password = jioejv*U&&^ 
+This simple e-commerce application, built with ASP.NET Core using the MVC architecture, allows users to view products, add items to their cart, and make payments. The application is monolithic and includes both HTML endpoints and RESTful APIs to enhance system responsiveness. You can view the RESTful APIs at the /swagger route. Some endpoints require authentication; please register at /auth/signup (accessible via the top right corner) to authenticate yourself. The application uses JWT combined with cookies for session management and tracking.
 
 
 ## project's dependencies and packages
