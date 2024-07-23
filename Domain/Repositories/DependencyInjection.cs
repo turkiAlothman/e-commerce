@@ -10,6 +10,7 @@ namespace e_commerce.Domain.Repositories
         public static void AddRepositories(this IServiceCollection services){
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ICartRepository, CartRepository>();
+        services.AddScoped<IUserRepository,UserRepository>();
         }
     }
 }

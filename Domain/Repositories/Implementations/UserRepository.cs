@@ -23,8 +23,12 @@ namespace e_commerce.Domain.Repositories.Implementations
          public async Task<User> getById(string id){
             return await this._UserCollection.Find(u => u.Id == id).FirstOrDefaultAsync();
          }
-        public  async Task<User> GetByEmail(Product Email){
+        public  async Task<User> GetByEmail(string Email){
             return await this._UserCollection.Find(u => u.Email.Equals(Email)).FirstOrDefaultAsync();
         } 
+
+        public async Task Create(User user){
+            await _UserCollection.InsertOneAsync(user);
+        }
     }
 }

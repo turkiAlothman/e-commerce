@@ -18,7 +18,7 @@ namespace e_commerce.Domain.Repositories.Implementations
         public async Task<Cart> GetCart(string UserId){
             try
             {
-                return await this._carts.Find(c => c.UserId == UserId).FirstAsync();
+                return await this._carts.Find(c => c.UserId == UserId).FirstOrDefaultAsync();
             }
             catch (FormatException){
                 return null;
@@ -26,6 +26,9 @@ namespace e_commerce.Domain.Repositories.Implementations
         }
         public async Task update(Cart cart){
             await this._carts.ReplaceOneAsync(c=>c.Id == cart.Id, cart);
+        }
+        public async Task create(Cart cart){
+           await this._carts.InsertOneAsync(cart);
         }
     }
 }

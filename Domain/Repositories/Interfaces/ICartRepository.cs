@@ -11,6 +11,7 @@ namespace e_commerce.Domain.Repositories.Interfaces
     {
         public  Task<Cart> GetCart(string UserId);
         public  Task update(Cart cart);
+        public Task create(Cart cart);
         
     }
 }
