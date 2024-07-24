@@ -64,7 +64,7 @@ The entire application, including the database and web server, has been built us
 *Authentication Required:* false
 
 **DELETE** /api/Cart/{ProductId}  
-*Description:* Removes a product from the cart.  
+*Description:* Removes a product from the cart. (reduce quantity) 
 *Authentication Required:* false
 
 **GET** /api/Cart  
@@ -72,12 +72,12 @@ The entire application, including the database and web server, has been built us
 *Authentication Required:* false
 
 **DELETE** /api/Cart/remove/{ProductId}  
-*Description:* Removes a specific product from the cart.  
+*Description:* Removes a specific product from the cart.(remove with quantity)  
 *Authentication Required:* false
 
 **POST** /api/Cart/checkout  
 *Description:* Initiates the checkout process for the current cart.  
-*Authentication Required:* false
+*Authentication Required:* true
 
 ### ProductApi
 
